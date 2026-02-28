@@ -27,13 +27,22 @@ cp -r openclaw-clickup-skill ./skills/
 
 ### 2. Configuration
 
-Set these environment variables:
+**Option A: Environment Variables (Recommended)**
 
 ```bash
 export CLICKUP_API_TOKEN="your_personal_api_token"
 export CLICKUP_TEAM_ID="your_workspace_id"
 export CLICKUP_LIST_ID="your_default_list_id"
 ```
+
+**Option B: Config File**
+
+```bash
+cp config/clickup.yaml.example config/clickup.yaml
+# Edit config/clickup.yaml with your actual values
+```
+
+⚠️ **Important:** `config/clickup.yaml` is gitignored. Never commit files with real API tokens!
 
 **Getting your credentials:**
 - **API Token**: ClickUp Settings → Apps → Generate API Token
