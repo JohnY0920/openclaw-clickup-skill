@@ -1,0 +1,65 @@
+#!/bin/bash
+# Simple ClickUp task CLI for OpenClaw
+
+API_TOKEN="pk_54837244_CVQ1FF2F5IWUCSFI8VTBFKEADPFJL8WW"
+BASE_URL="https://api.clickup.com/api/v2"
+
+command=$1
+shift
+
+case $command in
+  "create")
+    list_id=$1
+    name=$2
+    description=$3
+    tag=$4
+    
+    curl -s -X POST "$BASE_URL/list/$list_id/task" \
+      -H "Authorization: $API_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"name\": \"$name\",
+        \"description\": \"$description\",
+        \"tags\": [\"$tag\", \"agent-task\"],
+        \"status\": \"to do\",
+        \"priority\": 3
+      }" | jq -r '.id'
+    ;;
+    
+  "list")
+    list_id=$1
+    
+    curl -s "$BASE_URL/list/$list_id/task?statuses[]=to%20do" \
+      -H "Authorization: $API_TOKEN" | jq -r '.tasks[] | "\(.id): \(.name) [\(.status.status)]"'
+    ;;
+    
+  "update")
+    task_id=$1
+    status=$2
+    
+    curl -s -X PUT "$BASE_URL/task/$task_id" \
+      -H "Authorization: $API_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{\"status\": \"$status\"}"
+    ;;
+    
+  "comment")
+    task_id=$1
+    text=$2
+    
+    curl -s -X POST "$BASE_URL/task/$task_id/comment" \
+      -H "Authorization: $API_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{\"comment_text\": \"$text\"}"
+    ;;
+    
+  *)
+    echo "Usage: clickup-task <create|list|update|comment> [args...]"
+    echo ""
+    echo "Examples:"
+    echo "  clickup-task create LIST_ID \"Research API\" \"Description...\" hange"
+    echo "  clickup-task list LIST_ID"
+    echo "  clickup-task update TASK_ID \"in progress\""
+    echo "  clickup-task comment TASK_ID \"[AGENT:hange] [TYPE:STATUS] Working...\""
+    ;;
+esac

@@ -1,0 +1,96 @@
+# ClickUp Configuration for Agent Squad
+# Created: Sat Feb 28 17:29:23 EST 2026
+
+api:
+  base_url: "https://api.clickup.com/api/v2"
+  token: "pk_54837244_CVQ1FF2F5IWUCSFI8VTBFKEADPFJL8WW"
+  rate_limit: 100
+
+# Team: Aisemble
+team_id: "42617539"
+team_name: "Aisemble"
+
+# New Agent Squad Workspace
+space_id: "90174470844"
+space_name: "Agent Squad"
+folder_id: "90177089748"
+folder_name: "Active Missions"
+
+# Main List for agent tasks
+list_id: "901711500194"
+list_name: "Squad Backlog"
+
+# Specialized Lists by Agent Role
+agent_lists:
+  jojo: "901711500194"  # Squad Backlog (general)
+  hange: "901711500196"  # Research & Intel
+  levi: "901711500197"  # Development
+  armin: "901711500198"  # Analysis & Strategy
+  erwin: "901711500199"  # Project Coordination
+
+# Agent Configuration
+agents:
+  jojo:
+    name: "Jojo"
+    role: "planner"
+    list: "Squad Backlog"
+    tags: ["planner", "admin"]
+    can_create: true
+    can_assign: true
+    
+  hange:
+    name: "Hange"
+    role: "research"
+    list: "Research & Intel"
+    tags: ["research", "intel"]
+    model: "kimi"
+    
+  levi:
+    name: "Levi"
+    role: "development"
+    list: "Development"
+    tags: ["code", "dev"]
+    model: "claude-sonnet"
+    
+  armin:
+    name: "Armin"
+    role: "analysis"
+    list: "Analysis & Strategy"
+    tags: ["analysis", "strategy"]
+    model: "claude-opus"
+    
+  erwin:
+    name: "Erwin"
+    role: "pm"
+    list: "Project Coordination"
+    tags: ["pm", "coordination"]
+    model: "gemini"
+
+# Task Workflow
+workflow:
+  statuses:
+    - "to do"
+    - "picked up"
+    - "in progress"
+    - "blocked"
+    - "review"
+    - "done"
+    - "failed"
+
+# Communication Format
+communication:
+  comment_prefix: "[AGENT:{agent_id}] [TYPE:{type}]"
+  message_types:
+    - "STATUS"
+    - "OUTPUT"
+    - "ERROR"
+    - "REQUEST"
+    - "INFO"
+
+# Retry Settings
+retry:
+  max_attempts: 3
+  backoff_seconds: 60
+
+# ClickUp URL
+workspace_url: "https://app.clickup.com/42617539/v/o/s/90174470844"
