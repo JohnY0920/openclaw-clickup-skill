@@ -1,20 +1,25 @@
-# ClickUp Configuration (Local Only - Do Not Commit)
-# This file is gitignored. Use clickup.yaml.example as template.
+# ClickUp Configuration for Agent Squad
+# Copy this file to clickup.yaml and fill in your actual values
+# DO NOT commit clickup.yaml with real API tokens to git!
 
 api:
   base_url: "https://api.clickup.com/api/v2"
-  token: "YOUR_CLICKUP_API_TOKEN_HERE"
+  token: "YOUR_CLICKUP_API_TOKEN_HERE"  # Get from ClickUp Settings → Apps
   rate_limit: 100
 
+# Agent Squad Workspace
 team_id: "YOUR_TEAM_ID_HERE"
 team_name: "Agent Squad"
 
+# Main List for all agent tasks
 list_id: "YOUR_LIST_ID_HERE"
 list_name: "Agent Tasks"
 
+# ClickUp URL
 workspace_url: "https://app.clickup.com/YOUR_TEAM_ID"
 list_url: "https://app.clickup.com/YOUR_TEAM_ID/v/l/li/YOUR_LIST_ID"
 
+# Agent Configuration
 agents:
   jojo:
     name: "Jojo"
@@ -47,6 +52,7 @@ agents:
     tags: ["pm", "coordination", "erwin"]
     model: "gemini"
 
+# Task Workflow
 workflow:
   statuses:
     - "to do"
@@ -57,6 +63,7 @@ workflow:
     - "done"
     - "failed"
 
+# Communication Format
 communication:
   comment_prefix: "[AGENT:{agent_id}] [TYPE:{type}]"
   message_types:
@@ -66,6 +73,7 @@ communication:
     REQUEST: "Need input/decision"
     INFO: "General information"
 
+# Retry Settings
 retry:
   max_attempts: 3
   backoff_seconds: 60
